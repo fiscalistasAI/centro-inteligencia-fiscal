@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { getSiteUrl } from "@/lib/site-url";
 
 export type AuthState = { error?: string; success?: string } | null;
 
@@ -20,7 +21,11 @@ export async function signUp(_: AuthState, formData: FormData): Promise<AuthStat
   const email = String(formData.get("email") ?? "");
   const password = String(formData.get("password") ?? "");
   const supabase = await createClient();
-  const { data, error } = await supabase.auth.signUp({ email, password });
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: { emailRedirectTo: `${getSiteUrl()}/auth/callback` },
+  });
   if (error) return { error: "No pudimos crear la cuenta. Verifica los datos e intenta nuevamente." };
   if (!data.session) return { success: "Cuenta creada. Revisa tu correo para confirmar el acceso." };
   redirect("/");

@@ -1,0 +1,18 @@
+project_id = "pvchapkgbpelawcvdzrg"
+
+[auth]
+site_url = "https://centro-inteligencia-fiscal.vercel.app"
+additional_redirect_urls = [
+  "https://centro-inteligencia-fiscal.vercel.app/**",
+  "http://localhost:3000/**",
+  "https://*-fiscalistas-ai.vercel.app/**",
+]
+
+[auth.email]
+enable_confirmations = true
+max_frequency = "1m"
+otp_length = 8
+
+[auth.mfa.totp]
+enroll_enabled = true
+verify_enabled = true
