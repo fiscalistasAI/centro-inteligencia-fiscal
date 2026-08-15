@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: "Aptos", "Segoe UI Variable", "SF Pro Text", "Segoe UI", sans-serif;
+  --font-mono: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--ink);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --color-error-strong: var(--error-strong);
+}
+
+:root {
+  --background: oklch(1 0 0);
+  --ink: oklch(0.21 0.034 250);
+  --muted: oklch(0.45 0.025 245);
+  --subtle: oklch(0.6 0.018 240);
+  --surface: oklch(0.97 0.006 230);
+  --surface-strong: oklch(0.94 0.012 230);
+  --border: oklch(0.9 0.012 235);
+  --primary: oklch(0.55 0.091 210);
+  --primary-strong: oklch(0.47 0.095 210);
+  --success: oklch(0.56 0.14 160);
+  --warning: oklch(0.67 0.16 70);
+  --error: oklch(0.58 0.19 27);
+  --error-strong: oklch(0.5 0.19 27);
+}
+
+* { box-sizing: border-box; }
+html { background: var(--background); color: var(--ink); font-kerning: normal; }
+body { margin: 0; min-height: 100vh; background: var(--background); }
+button, input, select, textarea { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+::selection { background: oklch(0.86 0.05 210); color: var(--ink); }
+
+.skip-link {
+  position: fixed; inset-inline-start: 1rem; top: -4rem; z-index: 100;
+  border-radius: .5rem; background: var(--ink); color: white; padding: .75rem 1rem;
+}
+.skip-link:focus { top: 1rem; }
+
+.panel { border: 1px solid var(--border); border-radius: .75rem; background: white; }
+.tabular { font-variant-numeric: tabular-nums; }
+.scrollbar-none { scrollbar-width: none; }
+
+@keyframes progress-pulse { 0%,100% { opacity: .55 } 50% { opacity: 1 } }
+.processing-pulse { animation: progress-pulse 1.4s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
