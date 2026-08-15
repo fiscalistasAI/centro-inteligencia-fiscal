@@ -8,7 +8,8 @@ export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
   const supabase = createServerClient(url, key, { cookies: { getAll: () => request.cookies.getAll(), setAll: (items) => { items.forEach(({ name, value }) => request.cookies.set(name, value)); response = NextResponse.next({ request }); items.forEach(({ name, value, options }) => response.cookies.set(name, value, options)); } } });
   const { data } = await supabase.auth.getClaims();
-  if (!data?.claims && request.nextUrl.pathname !== "/login") {
+  const isPublicAuthRoute = request.nextUrl.pathname === "/login" || request.nextUrl.pathname.startsWith("/auth/");
+  if (!data?.claims && !isPublicAuthRoute) {
     const redirect = request.nextUrl.clone(); redirect.pathname = "/login"; return NextResponse.redirect(redirect);
   }
   return response;
